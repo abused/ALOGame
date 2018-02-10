@@ -4,7 +4,7 @@ import abused_master.javagame.Game;
 
 public class RenderManager extends Render {
 
-    public double floorPosition = 16;
+    public double floorPosition = 8;
     public double skyPosition = 50001;
     public double renderDistance = 50000;
     public double[] zBuffer;
@@ -20,13 +20,14 @@ public class RenderManager extends Render {
         double costine = Math.cos(rotation);
         double forward = game.controller.x;
         double right = game.controller.z;
+        double jump = game.controller.y;
 
         for (int y = 0; y < height; y++) {
             double yDepth = (y - height / 2.0) / height;
-            double z = floorPosition / yDepth;
+            double z = (floorPosition + jump) / yDepth;
 
             if(yDepth < 0) {
-                z = skyPosition / -yDepth;
+                z = (skyPosition - jump) / -yDepth;
             }
 
 
